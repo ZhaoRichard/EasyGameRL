@@ -14,7 +14,7 @@
 #include "Math/RandomStream.h"
 #include <Runtime\Core\Public\HAL\PlatformFilemanager.h>
 
-#define Debug(x) if(GEngine){GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Cyan, x);}
+#define Debug(x) if(GEngine && showDebug){GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Cyan, x);}
 // Example using Debug for showing a variable
 // int a = 1;
 // Debug(FString::Printf(TEXT("Some int variable: %i"), a));
@@ -48,6 +48,8 @@ void URLComponent::BeginPlay() {
 	NumOfStates = 0;
 	curAction = 0;
 	count = 0;
+	weightLimit = 200;
+	showDebug = true;
 	logFilePath = "logfile.txt";
 	logDataPath = "logdata.txt";
 
@@ -84,14 +86,15 @@ void URLComponent::takeScreenshot() {
 	PController->ConsoleCommand(*comd);
 }
 
+void URLComponent::setDebugMessages(bool ShowDebugMessages) {
+	showDebug = ShowDebugMessages;
+}
 
 void URLComponent::setLogFileLocation(FString logLocation) {
-
 	logFilePath = logLocation;
 }
 
 void URLComponent::setLogDataLocation(FString logLocation) {
-
 	logDataPath = logLocation;
 }
 
@@ -325,7 +328,7 @@ int URLComponent::QLearningSelectAction() {
 
 void URLComponent::QLearningUpdate(TArray<bool> nextState, float reward) {
 
-	Debug(FString::Printf(TEXT("Q reward: %f %i"), reward, count));
+	Debug(FString::Printf(TEXT("Q reward: %f step: %i"), reward, count));
 
 	FString temp = "";
 	int counter = 0;
@@ -552,7 +555,7 @@ int URLComponent::QLearningSelectActionTabular()
 
 void URLComponent::QLearningUpdateTabular(int nextState, float reward) {
 
-	Debug(FString::Printf(TEXT("QT reward: %f %i"), reward, count));
+	Debug(FString::Printf(TEXT("QT reward: %f step: %i"), reward, count));
 
 	FString temp = "";
 	int counter = 0;
@@ -646,7 +649,7 @@ int URLComponent::SARSASelectAction() {
 
 void URLComponent::SARSAUpdate(TArray<bool> nextState, float reward) {
 
-	Debug(FString::Printf(TEXT("S reward: %f %i"), reward, count));
+	Debug(FString::Printf(TEXT("S reward: %f step: %i"), reward, count));
 
 	FString temp = "";
 	int counter = 0;
@@ -858,7 +861,7 @@ void URLComponent::InitializeSARSA(TArray<bool> State) {
 // Tabular SARSA
 void URLComponent::SARSAUpdateTabular(int nextState, float reward) {
 
-	Debug(FString::Printf(TEXT("ST reward: %f %i"), reward, count));
+	Debug(FString::Printf(TEXT("ST reward: %f step: %i"), reward, count));
 
 	FString temp = "";
 	int counter = 0;

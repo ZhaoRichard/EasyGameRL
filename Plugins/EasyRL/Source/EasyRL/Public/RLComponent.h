@@ -63,7 +63,7 @@ public:
 	TArray<bool> curState;
 	int curStateTabular;
 
-	int weightLimit = 200;
+	int weightLimit;
 
 	TArray<FNestedArray> wTable;
 	//Access like so
@@ -75,6 +75,8 @@ public:
 
 	FString logFilePath;
 	FString logDataPath;
+
+	bool showDebug;
 	int count;
 
 	// Functions ========
@@ -150,6 +152,10 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 		void takeScreenshot();
+
+	UFUNCTION(BlueprintCallable, meta = (AutoCreateRefTerm = "ShowDebugMessages"))
+		void setDebugMessages(bool ShowDebugMessages);
+
 
 	// Helper Functions ======
 	int QLearningSelectAction();
