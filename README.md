@@ -5,3 +5,7 @@ Reinforcement learning algorithms have been applied to many research areas in ga
 Contributors: Rachael Versaw, Samantha Schultz, Kevin Lu
 
 Principal Investigator: Richard Zhao
+
+Details
+
+	See details in: https://doi.org/10.1145/3472538.3472583
